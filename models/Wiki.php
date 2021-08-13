@@ -21,7 +21,19 @@ use asinfotrack\yii2\wiki\Module;
 class Wiki extends \yii\db\ActiveRecord
 {
 
-	/**
+    private static $dir;
+
+    function __construct($config = [])
+    {
+        self::$dir = Yii::getAlias('@runtime') . '/wiki/';
+
+        if(!file_exists(self::$dir)) {
+            mkdir(self::$dir);
+        }
+        parent::__construct($config);
+    }
+
+    /**
 	 * @inheritdoc
 	 */
 	public static function tableName()
@@ -66,7 +78,43 @@ class Wiki extends \yii\db\ActiveRecord
 		return new $queryClass(get_called_class());
 	}
 
-	public function getIsOrphan()
+	public static function findOne($condition)
+    {
+        if(!isset($condition['id'])) {
+            return false;
+        }
+        $model = null;
+        $fileName = Yii::getAlias('@runtime') . '/wiki/' . $condition['id'] . '.txt';
+        try {
+            if(file_exists($fileName)) {
+                $model = new self();
+                $model->id = $condition['id'];
+                $model->content = file_get_contents($fileName);
+            } else {
+                $create = fopen($fileName, 'w');
+                fclose($create);
+                $model = new self();
+                $model->id = $condition['id'];
+            }
+
+        } catch (\Exception $e) {
+            Yii::error($e->getMessage() . PHP_EOL . $e->getTraceAsString());
+        }
+        return $model;
+    }
+
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        if(self::findOne(['id' => $this->id])) {
+            try {
+                file_put_contents(self::$dir . $this->id . '.txt', $this->content);
+            } catch (\Exception $e) {
+                Yii::error($e->getMessage() . PHP_EOL . $e->getTraceAsString());
+            }
+        }
+    }
+
+    public function getIsOrphan()
 	{
 		return !static::find()->withLinkToArticle($this->id)->exists();
 	}
