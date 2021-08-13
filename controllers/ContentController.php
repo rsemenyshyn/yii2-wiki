@@ -114,7 +114,7 @@ class ContentController extends Controller
 		if ($model === null) {
 			return $this->redirect(['create', 'id'=>$id]);
 		}
-
+		$model->content = nl2br($model->content);
 		return $this->render(Module::getInstance()->viewMap['view'], [
 			'model'=>$model,
 		]);
@@ -176,7 +176,7 @@ class ContentController extends Controller
 			return $this->redirect(['view', 'id'=>$model->id]);
 		}
 
-        return $this->render(Module::getInstance()->viewMap['update'], [
+        return $this->render('update', [
             'model'=>$model,
         ]);
 
