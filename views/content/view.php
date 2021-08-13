@@ -12,7 +12,7 @@ $this->title = Html::encode($model->title);
 <h1><?= Html::encode($this->title) ?></h1>
 
 <div class="wiki-content">
-	<?= $model->contentProcessed ?>
+	<?= $model->content ?>
 </div>
 
 <?= Button::widget([
