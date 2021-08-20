@@ -1,5 +1,5 @@
 <?php
-namespace asinfotrack\yii2\wiki\accessRights;
+namespace d4yii2\yii2\wiki\accessRights;
 
 
 use CompanyRights\components\UserRoleInterface;

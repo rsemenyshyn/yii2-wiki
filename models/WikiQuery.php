@@ -1,12 +1,10 @@
 <?php
-namespace asinfotrack\yii2\wiki\models;
+namespace d4yii2\yii2\wiki\models;
 
 /**
  * This is the ActiveQuery class for [[\app\models\Wiki]].
  * @see \app\models\Wiki
  *
- * @author Pascal Mueller, AS infotrack AG
- * @link http://www.asinfotrack.ch
  * @license MIT
  */
 class WikiQuery extends \yii\db\ActiveQuery

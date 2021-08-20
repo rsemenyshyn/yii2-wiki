@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel asinfotrack\yii2\wiki\models\WikiSearch */
+/* @var $searchModel d4yii2\yii2\wiki\models\WikiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Wikis';

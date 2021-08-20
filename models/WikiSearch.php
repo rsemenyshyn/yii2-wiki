@@ -1,16 +1,14 @@
 <?php
-namespace asinfotrack\yii2\wiki\models;
+namespace d4yii2\yii2\wiki\models;
 
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use asinfotrack\yii2\wiki\Module;
+use d4yii2\yii2\wiki\Module;
 
 /**
  * WikiSearch represents the model behind the search form about `app\models\Wiki`.
  *
- * @author Pascal Mueller, AS infotrack AG
- * @link http://www.asinfotrack.ch
  * @license MIT
  */
 class WikiSearch extends Wiki

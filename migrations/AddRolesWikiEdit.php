@@ -1,7 +1,7 @@
 <?php
 
 
-use asinfotrack\yii2\wiki\accessRights\WikiEditUserRole;
+use d4yii2\yii2\wiki\accessRights\WikiEditUserRole;
 use yii\db\Migration;
 
 

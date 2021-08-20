@@ -2,6 +2,7 @@
 Yii2-Wiki is a flexible implementation of a wiki for Yii2
  - can implement own layout
  - can use rules for access control
+ - doesn't use DB, saves everything in files
 
 ## Installation
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
@@ -9,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```bash
-$ composer require asinfotrack/yii2-wiki
+$ composer require d4yii2/yii2-wiki
 ```
 
 or add
 
 ```
-"asinfotrack/yii2-wiki": "dev-master"
+"d4yii2/yii2-wiki": "dev-master"
 ```
 
 to the `require` section of your `composer.json` file.
@@ -26,7 +27,7 @@ to the `require` section of your `composer.json` file.
 ###### Migration
 For the default table structure execute the provided migration as follows:
 
-	yii migrate --migrationPath=@vendor/asinfotrack/yii2-wiki/migrations
+	yii migrate --migrationPath=@vendor/d4yii2/yii2-wiki/migrations
 
 To remove the table just do the same migration downwards.
 
@@ -38,7 +39,7 @@ add the following entry to the modules-part of your config-file:
 
 'modules'=>[
 	'wiki'=>[
-		'class'=>'asinfotrack\yii2\wiki\Module',
+		'class'=>'d4yii2\yii2\wiki\Module',
 		'processContentCallback'=>function($content) {
 			//example if you want to use markdown in your wiki
 			return Parsedown::instance()->parse($content);

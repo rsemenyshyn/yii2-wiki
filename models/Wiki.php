@@ -1,8 +1,9 @@
 <?php
-namespace asinfotrack\yii2\wiki\models;
+namespace d4yii2\yii2\wiki\models;
 
+use eaBlankonThema\components\FlashHelper;
 use Yii;
-use asinfotrack\yii2\wiki\Module;
+use d4yii2\yii2\wiki\Module;
 
 /**
  * This is the model class for table "wiki".
@@ -14,14 +15,13 @@ use asinfotrack\yii2\wiki\Module;
  * @property bool $isOrphan
  * @property string $contentProcessed
  *
- * @author Pascal Mueller, AS infotrack AG
- * @link http://www.asinfotrack.ch
  * @license MIT
  */
 class Wiki extends \yii\db\ActiveRecord
 {
 
     private static $dir;
+    public $img;
 
     function __construct($config = [])
     {
@@ -103,10 +103,32 @@ class Wiki extends \yii\db\ActiveRecord
         return $model;
     }
 
-    public function save($runValidation = true, $attributeNames = null)
+    public function load($data, $formName = null, $img = null)
+    {
+        if(!empty($img)) {
+            $allowed = array('jpeg', 'png', 'jpg');
+            $filename = $img['name']['img'];
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+            if (!in_array(strtolower($ext), $allowed)) {
+                FlashHelper::addDanger('Unsupported file type !');
+                return false;
+            }
+            if($img['size']['img'] > 2 * 1024 * 1024) { // 2MB
+                FlashHelper::addDanger('Image is too big !');
+                return false;
+            }
+        }
+        return parent::load($data, $formName);
+    }
+
+    public function save($runValidation = true, $attributeNames = null, $img = null)
     {
         if(self::findOne(['id' => $this->id])) {
             try {
+                if(!empty($img)) {
+                    $imgContent = file_get_contents($img['tmp_name']['img']);
+                    file_put_contents(self::$dir.$img['name']['img'],$imgContent);
+                }
                 file_put_contents(self::$dir . $this->id . '.txt', $this->content);
             } catch (\Exception $e) {
                 Yii::error($e->getMessage() . PHP_EOL . $e->getTraceAsString());
@@ -123,5 +145,16 @@ class Wiki extends \yii\db\ActiveRecord
 	{
 		return Module::getInstance()->processContent($this->content);
 	}
+
+	public function getAttachments()
+    {
+        $attachments = glob(self::$dir . "/*.{jpg,png,jpeg,JPG,PNG,JPEG}", GLOB_BRACE);
+        $result = [];
+        foreach ($attachments as $key => $path) {
+            $result[$key]['path'] = $path;
+            $result[$key]['name'] = basename($path);
+        }
+        return $result;
+    }
 
 }

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $model asinfotrack\yii2\wiki\models\Wiki */
+/* @var $model d4yii2\yii2\wiki\models\Wiki */
 
 $this->title = Html::encode($model->title);
 ?>

@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model asinfotrack\yii2\wiki\models\Wiki */
+/* @var $model d4yii2\yii2\wiki\models\Wiki */
 
 $this->title = 'Create Wiki';
 ?>

@@ -1,5 +1,5 @@
 <?php
-namespace asinfotrack\yii2\wiki;
+namespace d4yii2\yii2\wiki;
 
 use d3system\yii2\base\D3Module;
 use yii\base\BootstrapInterface;
@@ -7,10 +7,6 @@ use yii\helpers\Inflector;
 
 /**
  * Main module class of the wiki.
- *
- * @author Pascal Mueller, AS infotrack AG
- * @link http://www.asinfotrack.ch
- * @license MIT
  */
 class Module extends D3Module implements BootstrapInterface
 {
@@ -18,7 +14,7 @@ class Module extends D3Module implements BootstrapInterface
 	/**
 	 * @var string the default namespace for this modules controllers
 	 */
-	public $controllerNamespace = 'asinfotrack\yii2\wiki\controllers';
+	public $controllerNamespace = 'd4yii2\yii2\wiki\controllers';
 
 	/**
 	 * @var string the default route to use when not specified
@@ -33,17 +29,17 @@ class Module extends D3Module implements BootstrapInterface
 	/**
 	 * @var string the model class to use for the wiki articles
 	 */
-	public $modelClass = 'asinfotrack\yii2\wiki\models\Wiki';
+	public $modelClass = 'd4yii2\yii2\wiki\models\Wiki';
 
 	/**
 	 * @var string the class used for searching
 	 */
-	public $searchModelClass = 'asinfotrack\yii2\wiki\models\WikiSearch';
+	public $searchModelClass = 'd4yii2\yii2\wiki\models\WikiSearch';
 
 	/**
 	 * @var string the query class
 	 */
-	public $queryClass = 'asinfotrack\yii2\wiki\models\WikiQuery';
+	public $queryClass = 'd4yii2\yii2\wiki\models\WikiQuery';
 
 	/**
 	 * @var string regex used to validate article ids

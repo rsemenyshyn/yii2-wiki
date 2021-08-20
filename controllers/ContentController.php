@@ -1,21 +1,19 @@
 <?php
-namespace asinfotrack\yii2\wiki\controllers;
+namespace d4yii2\yii2\wiki\controllers;
 
-use asinfotrack\yii2\wiki\models\Wiki;
+use d4yii2\yii2\wiki\models\Wiki;
+use eaBlankonThema\components\FlashHelper;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use asinfotrack\yii2\wiki\Module;
+use d4yii2\yii2\wiki\Module;
 
 
 /**
  * WikiController implements the CRUD actions for Wiki model.
  *
- * @author Pascal Mueller, AS infotrack AG
- * @link http://www.asinfotrack.ch
- * @license MIT
  */
 class ContentController extends Controller
 {
@@ -38,6 +36,8 @@ class ContentController extends Controller
                                 'admin',
                                 'create',
                                 'update',
+                                'show-image',
+                                'delete-image'
                             ],
                             'roles' => $rolesCanEdit,
                         ],
@@ -170,14 +170,18 @@ class ContentController extends Controller
 	public function actionUpdate($id)
 	{
 		$model = $this->findModel($id);
+
 		if ($model === null) return $this->redirect(['create', 'id'=>$id]);
 
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $img = isset($_FILES['Wiki']) && !empty($_FILES['Wiki']['name']['img']) ? $_FILES['Wiki'] : '';
+
+		if ($model->load(Yii::$app->request->post(),null ,$img) && $model->save(true, null, $img)) {
 			return $this->redirect(['view', 'id'=>$model->id]);
 		}
 
         return $this->render('update', [
             'model'=>$model,
+            'attachments' => $model->getAttachments()
         ]);
 
 	}
@@ -200,7 +204,7 @@ class ContentController extends Controller
 	 * a 404 HTTP exception will be thrown.
 	 *
 	 * @param string $id id of the article to find
-	 * @return \asinfotrack\yii2\wiki\models\Wiki the loaded model
+	 * @return \d4yii2\yii2\wiki\models\Wiki the loaded model
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	protected function findModel($id)
@@ -214,4 +218,23 @@ class ContentController extends Controller
 
 	}
 
+	public function actionShowImage(string $img)
+    {
+        $response = \Yii::$app->response;
+        $response->format = yii\web\Response::FORMAT_RAW;
+        $response->headers->add('content-type', 'image/jpg');
+        $img_data = file_get_contents(Yii::getAlias('@runtime') . '/wiki/'.$img);
+        $response->data = $img_data;
+        return $response;
+    }
+
+    public function actionDeleteImage(string $img, string $id)
+    {
+        try {
+            unlink(Yii::getAlias('@runtime') . '/wiki/'.$img);
+        } catch (\Exception $e) {
+            FlashHelper::addDanger($e->getMessage());
+        }
+        return $this->redirect(['update', 'id' => $id]);
+    }
 }
