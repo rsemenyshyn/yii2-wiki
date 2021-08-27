@@ -6,7 +6,6 @@
 	"keywords": ["yii2", "wiki", "module"],
 	
 	"license": "MIT",
-	],
 	
 	"minimum-stability": "stable",
 	"support": {
