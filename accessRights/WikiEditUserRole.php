@@ -13,7 +13,7 @@ class WikiEditUserRole implements UserRoleInterface
     /**
      * @inheritdoc
      */
-    public function getType(): string
+    public function getType()
     {
         return self::TYPE_REGULAR;
     }
@@ -21,7 +21,7 @@ class WikiEditUserRole implements UserRoleInterface
     /**
      * @inheritdoc
      */
-    public function getLabel(): string
+    public function getLabel()
     {
         return Yii::t('app', 'Wiki Edit');
     }
@@ -29,7 +29,7 @@ class WikiEditUserRole implements UserRoleInterface
     /**
      * @inheritdoc
      */
-    public function getName(): string
+    public function getName()
     {
         return self::NAME;
     }
@@ -37,7 +37,7 @@ class WikiEditUserRole implements UserRoleInterface
     /**
      * @inheritdoc
      */
-    public function getAssigments(): array
+    public function getAssigments()
     {
         return [];
     }
@@ -45,7 +45,7 @@ class WikiEditUserRole implements UserRoleInterface
     /**
      * @inheritdoc
      */
-    public function canAssign(): bool
+    public function canAssign()
     {
         return Yii::$app->user->can(SystemAdminUserRole::NAME);
     }
@@ -53,7 +53,7 @@ class WikiEditUserRole implements UserRoleInterface
     /**
      * @inheritdoc
      */    
-    public function canView(): bool
+    public function canView()
     {
 
         return Yii::$app->user->can(SystemAdminUserRole::NAME);
@@ -62,7 +62,7 @@ class WikiEditUserRole implements UserRoleInterface
     /**
      * @inheritdoc
      */
-    public function canRevoke(): bool
+    public function canRevoke()
     {
         return Yii::$app->user->can(SystemAdminUserRole::NAME);
     }            
