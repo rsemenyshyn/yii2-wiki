@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```bash
-$ composer require d4yii2/yii2-wiki
+$ composer require rsemenyshyn/yii2-wiki
 ```
 
 or add
 
 ```
-"d4yii2/yii2-wiki": "dev-master"
+"rsemenyshyn/yii2-wiki": "dev-master"
 ```
 
 to the `require` section of your `composer.json` file.
