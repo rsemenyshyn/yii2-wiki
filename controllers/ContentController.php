@@ -141,7 +141,7 @@ class ContentController extends Controller
 
 		//if the id already exists, go to update action
 		$model = $modelClassName::findOne($id);
-		if ($model !== null) {
+		if ($model && $model !== null) {
 			return $this->redirect(['update', 'id'=>$model->id]);
 		}
 
