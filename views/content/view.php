@@ -15,15 +15,14 @@ $this->title = Html::encode($model->title);
     <div class="wiki-content">
         <?= \Parsedown::instance()->parse($model->content) ?>
     </div>
+    <?php if (Yii::$app->user->can(\d4yii2\yii2\wiki\accessRights\WikiEditUserRole::NAME)) { ?>
+        <?= Button::widget([
+            'tagName'=>'a',
+            'label'=>Yii::t('app', 'Update'),
+            'options'=>[
+                'class'=>'btn-primary',
+                'href'=>Url::to(['update', 'id'=>$model->id]),
+            ],
+        ]) ?>
+    <?php } ?>
 </div>
-
-<?php if (Yii::$app->user->can(\d4yii2\yii2\wiki\accessRights\WikiEditUserRole::NAME)) { ?>
-    <?= Button::widget([
-        'tagName'=>'a',
-        'label'=>Yii::t('app', 'Update'),
-        'options'=>[
-            'class'=>'btn-primary',
-            'href'=>Url::to(['update', 'id'=>$model->id]),
-        ],
-    ]) ?>
-<?php } ?>
