@@ -34,51 +34,61 @@ class Wiki extends \yii\db\ActiveRecord
     }
 
     /**
-	 * @inheritdoc
-	 */
-	public static function tableName()
-	{
-		return 'wiki';
-	}
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'wiki';
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules()
-	{
-		return [
-			[['content'], 'default'],
+    public static function getTableSchema() {
+        $obj = new \stdClass();
+        $obj->columns = [
+            'id' => Yii::t('app', 'Identifier'),
+            'title' => Yii::t('app', 'Title'),
+            'content' => Yii::t('app', 'Content'),
+        ];
+        return $obj;
+    }
 
-			[['id', 'title'], 'required'],
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['content'], 'default'],
 
-			[['id'], 'match', 'pattern'=>Module::getInstance()->articleIdRegex, 'message'=>Module::getInstance()->invalidArticleIdMessage],
-			[['content'], 'string'],
-			[['id', 'title'], 'string', 'max'=>255],
-		];
-	}
+            [['id', 'title'], 'required'],
 
-	/**
-	 * @inheritdoc
-	 */
-	public function attributeLabels()
-	{
-		return [
-			'id' => Yii::t('app', 'Identifier'),
-			'title' => Yii::t('app', 'Title'),
-			'content' => Yii::t('app', 'Content'),
-		];
-	}
+            [['id'], 'match', 'pattern'=>Module::getInstance()->articleIdRegex, 'message'=>Module::getInstance()->invalidArticleIdMessage],
+            [['content'], 'string'],
+            [['id', 'title'], 'string', 'max'=>255],
+        ];
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public static function find()
-	{
-		$queryClass = Module::getInstance()->queryClass;
-		return new $queryClass(get_called_class());
-	}
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'Identifier'),
+            'title' => Yii::t('app', 'Title'),
+            'content' => Yii::t('app', 'Content'),
+        ];
+    }
 
-	public static function findOne($condition)
+    /**
+     * @inheritdoc
+     */
+    public static function find()
+    {
+        $queryClass = Module::getInstance()->queryClass;
+        return new $queryClass(get_called_class());
+    }
+
+    public static function findOne($condition)
     {
         if(!isset($condition['id'])) {
             return false;
@@ -137,16 +147,16 @@ class Wiki extends \yii\db\ActiveRecord
     }
 
     public function getIsOrphan()
-	{
-		return !static::find()->withLinkToArticle($this->id)->exists();
-	}
+    {
+        return !static::find()->withLinkToArticle($this->id)->exists();
+    }
 
-	public function getContentProcessed()
-	{
-		return Module::getInstance()->processContent($this->content);
-	}
+    public function getContentProcessed()
+    {
+        return Module::getInstance()->processContent($this->content);
+    }
 
-	public function getAttachments()
+    public function getAttachments()
     {
         $attachments = glob(self::$dir . "/*.{jpg,png,jpeg,JPG,PNG,JPEG}", GLOB_BRACE);
         $result = [];
