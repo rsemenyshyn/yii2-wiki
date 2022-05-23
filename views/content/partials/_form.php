@@ -2,7 +2,6 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use eaBlankonThema\widget\ThAlertList;
 
 /* @var $this yii\web\View */
 /* @var $model d4yii2\yii2\wiki\models\Wiki */
@@ -11,7 +10,6 @@ use eaBlankonThema\widget\ThAlertList;
 ?>
 
 <div class="row">
-    <?= ThAlertList::widget();?>
     <?php $form = ActiveForm::begin(['enableClientValidation'=>false,
         'options' => [
         'enctype' => 'multipart/form-data',
