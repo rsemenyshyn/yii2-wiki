@@ -11,7 +11,9 @@ $this->title = 'Wikis';
 
 <h1><?= Html::encode($this->title) ?></h1>
 
-<p><?= Html::a('Create Wiki', ['create'], ['class' => 'btn btn-success']) ?></p>
+<?php if (Yii::$app->user->can(\d4yii2\yii2\wiki\accessRights\WikiEditUserRole::NAME)) { ?>
+    <p><?= Html::a('Create Wiki', ['create'], ['class' => 'btn btn-success']) ?></p>
+<?php } ?>
 
 <?= GridView::widget([
 	'dataProvider' => $dataProvider,
