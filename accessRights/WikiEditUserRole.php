@@ -1,13 +1,11 @@
 <?php
 namespace d4yii2\yii2\wiki\accessRights;
 
-
-use CompanyRights\components\UserRoleInterface;
+use yii\rbac\Role;
 use yii2d3\d3persons\accessRights\SystemAdminUserRole;
 use Yii;
 
-class WikiEditUserRole implements UserRoleInterface
-{
+class WikiEditUserRole extends Role {
 
     const NAME = 'WikiEdit';
     /**
@@ -66,7 +64,5 @@ class WikiEditUserRole implements UserRoleInterface
     {
         return Yii::$app->user->can(SystemAdminUserRole::NAME);
     }            
-    
-
             
 }
