@@ -141,7 +141,7 @@ class Module extends D3Module implements BootstrapInterface
 	 * @param string $string the raw string to create an article id from
 	 * @return string the corrected string ready to use as an article id
 	 */
-	public function createArticleId($string): string
+	public function createArticleId($string)
     {
 		if ($this->createArticleIdCallback !== null && $this->createArticleIdCallback instanceof \Closure) {
 			return call_user_func($this->createArticleIdCallback, $string);
@@ -156,7 +156,7 @@ class Module extends D3Module implements BootstrapInterface
 	 * @param string $id the id to check
 	 * @return bool true if the id is valid
 	 */
-	public function isValidArticleId($id): bool
+	public function isValidArticleId($id)
     {
 		return preg_match($this->articleIdRegex, $id) === 1;
 	}
@@ -168,7 +168,7 @@ class Module extends D3Module implements BootstrapInterface
 	 * @param string $content the raw content from the article as saved in the db
 	 * @return string the processed content ready for output
 	 */
-	public function processContent($content): string
+	public function processContent($content)
     {
 		if ($this->processContentCallback !== null && $this->processContentCallback instanceof \Closure) {
 			return call_user_func($this->processContentCallback, $content);
